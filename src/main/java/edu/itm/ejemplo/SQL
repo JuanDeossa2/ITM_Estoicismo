@@ -1,0 +1,81 @@
+-- Estructura de Base de Datos para Proyecto de Desarrollo Integral y Estoicismo
+-- Institución: Instituto Tecnológico Metropolitano (ITM) [cite: 11]
+
+CREATE DATABASE itm_estoicismo_db;
+USE itm_estoicismo_db;
+
+-- 1. TABLAS DE ESTRUCTURA DE CONTENIDO (Rutas y Lecciones)
+
+-- Define las rutas estructuradas basadas en el estoicismo [cite: 54]
+CREATE TABLE rutas_aprendizaje (
+    id_ruta INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_ruta VARCHAR(100) NOT NULL, -- Ej: "Control de las Emociones", "Disciplina"
+    descripcion TEXT,
+    nivel_dificultad ENUM('Principiante', 'Intermedio', 'Avanzado') DEFAULT 'Principiante'
+);
+
+-- Contenido de micro aprendizaje
+CREATE TABLE lecciones (
+    id_leccion INT AUTO_INCREMENT PRIMARY KEY,
+    id_ruta INT,
+    titulo VARCHAR(150) NOT NULL,
+    contenido_teorico TEXT NOT NULL, -- Ataca la desconexión entre teoría y práctica [cite: 39]
+    orden_leccion INT NOT NULL,
+    FOREIGN KEY (id_ruta) REFERENCES rutas_aprendizaje(id_ruta) ON DELETE CASCADE
+);
+
+-- 2. TABLAS DE USUARIOS Y SEGUIMIENTO
+
+-- Perfil del usuario [cite: 57]
+CREATE TABLE usuarios (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_completo VARCHAR(200) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL, -- Para implementar autenticación [cite: 65]
+    puntos_totales INT DEFAULT 0,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Medición del progreso personal [cite: 38]
+CREATE TABLE progreso_lecciones (
+    id_progreso INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    id_leccion INT,
+    completada_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (id_leccion) REFERENCES lecciones(id_leccion)
+);
+
+-- 3. TABLAS DE DINÁMICA (Retos y Hábitos)
+
+-- Retos diarios para fomentar hábitos sostenibles [cite: 34, 67]
+CREATE TABLE retos_diarios (
+    id_reto INT AUTO_INCREMENT PRIMARY KEY,
+    id_leccion INT,
+    descripcion_reto TEXT NOT NULL,
+    puntos_recompensa INT DEFAULT 10,
+    FOREIGN KEY (id_leccion) REFERENCES lecciones(id_leccion)
+);
+
+-- Registro de cumplimiento de retos (Módulo de seguimiento) [cite: 67]
+CREATE TABLE registro_retos (
+    id_registro INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    id_reto INT,
+    fecha_cumplimiento DATE NOT NULL,
+    estado ENUM('Pendiente', 'Completado', 'Fallido') DEFAULT 'Pendiente',
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (id_reto) REFERENCES retos_diarios(id_reto)
+);
+
+-- 4. VISTAS PARA ANÁLISIS (Fase 1 y Fase 6) [cite: 56, 76]
+
+-- Vista para ver el ranking de usuarios (Gamificación)
+CREATE VIEW vista_progreso_general AS
+SELECT
+    u.nombre_completo,
+    COUNT(pl.id_leccion) as lecciones_vistas,
+    u.puntos_totales
+FROM usuarios u
+LEFT JOIN progreso_lecciones pl ON u.id_usuario = pl.id_usuario
+GROUP BY u.id_usuario;

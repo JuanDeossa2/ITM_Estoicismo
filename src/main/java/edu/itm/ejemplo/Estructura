@@ -1,0 +1,13 @@
+Configuration
+ - DocumentationConfig: Configurar datos de la API
+ controller
+ - RutaController: Crud del API de RutaAprendizaje
+ entitiesSQL
+ - RutaAprendizaje: Variables de RutaAprendizaje
+ repositoriesSQL
+ - RutaRepository:
+ - RutaRepositoryHelper:
+ services
+ - RutaService:
+ utilities
+ - Conexion: Conexion con la base de datos Puerto 3307
