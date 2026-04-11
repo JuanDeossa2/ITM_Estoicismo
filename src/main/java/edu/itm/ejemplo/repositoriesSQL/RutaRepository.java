@@ -12,7 +12,7 @@ import java.util.List;
 public class RutaRepository {
     @Autowired private RutaRepositoryHelper helper;
 
-    public List<RutaAprendizaje> getRutas() {
+    public List<RutaAprendizaje> BuscarRutas() {
         List<RutaAprendizaje> lista = new ArrayList<>();
         Conexion con = new Conexion();
         try (Connection c = con.obtenerConexion();
@@ -81,18 +81,13 @@ public class RutaRepository {
         return false;
     }
 
-    public RutaAprendizaje getRuta(int id) {
+    public RutaAprendizaje BuscarRutaId(int id) {
         RutaAprendizaje ruta = null;
         Conexion con = new Conexion();
-
         try (Connection c = con.obtenerConexion();
-             PreparedStatement ps = c.prepareStatement(
-                     "SELECT id_ruta, nombre_ruta, descripcion, nivel_dificultad FROM rutas_aprendizaje WHERE id_ruta = ?"
-             )) {
-
+             PreparedStatement ps = c.prepareStatement(helper.buscarRuta())) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
                 ruta = new RutaAprendizaje(
                         rs.getInt(1),
@@ -101,11 +96,9 @@ public class RutaRepository {
                         rs.getString(4)
                 );
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return ruta;
     }
 }

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rutas-estoicas")
+@RequestMapping("/rutas")
 public class RutaController {
 
     @Autowired
@@ -39,8 +39,8 @@ public class RutaController {
                     )
             }
     )
-    @GetMapping("/listar")
-    public ResponseEntity<List<RutaAprendizaje>> getRutas(){
+    @GetMapping("/listaRuta")
+    public ResponseEntity<List<RutaAprendizaje>> listar(){
         return new ResponseEntity<>(service.listar(), HttpStatus.OK);
     }
 
@@ -49,7 +49,7 @@ public class RutaController {
             summary = "Permite insertar una nueva ruta",
             description = "Inserta una nueva ruta en la base de datos"
     )
-    @PostMapping("/nuevo")
+    @PostMapping("/nuevaRuta")
     public ResponseEntity<RutaAprendizaje> insertarRuta(@RequestBody RutaAprendizaje ruta){
 
         if(ObjectUtils.isEmpty(ruta) || ObjectUtils.isEmpty(ruta.getNombreRuta())){
@@ -70,7 +70,7 @@ public class RutaController {
             summary = "Permite actualizar una ruta",
             description = "Actualiza una ruta existente"
     )
-    @PutMapping("/actualizar")
+    @PutMapping("/actualizarRuta")
     public ResponseEntity<RutaAprendizaje> actualizarRuta(@RequestBody RutaAprendizaje ruta){
 
         if(ObjectUtils.isEmpty(ruta) ||
@@ -93,14 +93,14 @@ public class RutaController {
             summary = "Permite obtener una ruta por ID",
             description = "Devuelve una ruta específica"
     )
-    @GetMapping("/buscarPorId")
-    public ResponseEntity<RutaAprendizaje> getRuta(@RequestParam int id){
+    @GetMapping("/buscarRutaPorId")
+    public ResponseEntity<RutaAprendizaje> BuscarRutaId(@RequestParam int id){
 
         if(ObjectUtils.isEmpty(id) || id == 0){
             return new ResponseEntity<>(new RutaAprendizaje(), HttpStatus.BAD_REQUEST);
         }
 
-        RutaAprendizaje ruta = service.getRuta(id);
+        RutaAprendizaje ruta = service.buscarRutaId(id);
 
         if(ObjectUtils.isEmpty(ruta)){
             return new ResponseEntity<>(new RutaAprendizaje(), HttpStatus.NO_CONTENT);
@@ -114,7 +114,7 @@ public class RutaController {
             summary = "Permite eliminar una ruta",
             description = "Elimina una ruta por ID"
     )
-    @DeleteMapping("/eliminar")
+    @DeleteMapping("/eliminarRuta")
     public ResponseEntity<Boolean> eliminarRuta(@RequestParam int id){
 
         if(ObjectUtils.isEmpty(id) || id == 0){

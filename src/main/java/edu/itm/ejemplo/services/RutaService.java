@@ -11,7 +11,7 @@ public class RutaService {
 
     public RutaService(RutaRepository repository) { this.repository = repository; }
 
-    public List<RutaAprendizaje> listar() { return repository.getRutas(); }
+    public List<RutaAprendizaje> listar() { return repository.BuscarRutas(); }
 
     public RutaAprendizaje crear(RutaAprendizaje ruta) {
         ruta.setIdRuta(repository.generarNuevoId());
@@ -25,7 +25,7 @@ public class RutaService {
         return repository.eliminar(idRuta);
     }
 
-    public RutaAprendizaje getRuta(int id) {
-        return repository.getRuta(id);
+    public RutaAprendizaje buscarRutaId(int id) {
+        return repository.BuscarRutaId(id);
     }
 }

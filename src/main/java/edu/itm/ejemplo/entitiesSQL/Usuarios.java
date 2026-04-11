@@ -14,6 +14,7 @@ import java.util.Date;
 public class Usuarios {
     private int idUsuario;
     private String nombreCompleto;
+    private String email;
     private String passwordHash;
     private int  puntosTotales;
     private Date fechaRegistro;

@@ -4,19 +4,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UsuarioRepositoryHelper {
+    // Buscar todos los usuarios
     public String listarUsuarios() { return "SELECT id_usuario, nombre_completo, email, password_hash, puntos_totales, fecha_registro FROM usuarios"; }
-    public String insertarRuta() { return "INSERT INTO rutas_aprendizaje (id_ruta, nombre_ruta, descripcion, nivel_dificultad) VALUES (?, ?, ?, ?)"; }
-    public String obtenerUltimoId() { return "SELECT MAX(id_ruta) FROM rutas_aprendizaje"; }
-    public String actualizarRuta() { return "UPDATE rutas_aprendizaje SET nombre_ruta = ?, descripcion = ?, nivel_dificultad = ? WHERE id_ruta = ?"; }
-    public String eliminarRuta() { return "DELETE FROM rutas_aprendizaje WHERE id_ruta = ?"; }
+    // Buscar todos los usuario por id_usuario
+    public String buscarUsuario(){ return "SELECT id_usuario, nombre_completo, email, password_hash, puntos_totales, fecha_registro FROM usuarios WHERE id_usuario = ?";}
+    // Crear Usuario
+    public String obtenerUltimoIdUsuario() { return "SELECT MAX(id_usuario) FROM usuarios"; }
+    public String insertarUsuario() { return "INSERT INTO usuarios (id_usuario, nombre_completo, email, password_hash, puntos_totales, fecha_registro) VALUES (?, ?, ?, ?, ?, ?)";}    // Actualizar Usuario
+    // Actualizar Usuario
+    public String actualizarUsuario() { return "UPDATE usuarios SET nombre_completo = ?, email = ?, password_hash = ?, puntos_totales = ?, fecha_registro = ? WHERE id_usuario = ?"; }
+    // Eliminar Usuario
+    public String eliminarUsuario() { return "DELETE FROM usuarios WHERE id_usuario = ?"; }
 }
-/*
-CREATE TABLE usuarios (
-        id_usuario INT AUTO_INCREMENT PRIMARY KEY,
-        nombre_completo VARCHAR(200) NOT NULL,
-email VARCHAR(150) UNIQUE NOT NULL,
-password_hash VARCHAR(255) NOT NULL, -- Para implementar autenticación [cite: 65]
-puntos_totales INT DEFAULT 0,
-fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-*/
