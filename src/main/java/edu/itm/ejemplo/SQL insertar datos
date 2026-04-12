@@ -1,0 +1,44 @@
+USE itm_estoicismo_db;
+-- Poblar Rutas
+INSERT INTO rutas_aprendizaje (id_ruta, nombre_ruta, descripcion, nivel_dificultad) VALUES
+(1, 'Dominio del Deseo', 'Diferencia entre lo que controlamos y lo que no.', 'Principiante'),
+(2, 'Fortaleza Mental', 'Resiliencia ante la adversidad.', 'Intermedio'),
+(3, 'Justicia y Comunidad', 'El individuo en la sociedad estoica.', 'Avanzado');
+
+-- Poblar Lecciones
+INSERT INTO lecciones (id_leccion, id_ruta, titulo, contenido_teorico, orden_leccion) VALUES
+(1, 1, 'Dicotomía del Control', 'Céntrate solo en tus pensamientos y acciones.', 1),
+(2, 1, 'Amor Fati', 'Aceptar y amar todo lo que sucede.', 2),
+(3, 2, 'Premeditatio Malorum', 'Visualizar dificultades para reducir impacto.', 1);
+
+-- Poblar Retos
+INSERT INTO retos_diarios (id_reto, id_leccion, descripcion_reto, puntos_recompensa) VALUES
+(1, 1, 'Clasifica hoy tres frustraciones según tu control.', 15),
+(2, 3, 'Imagina un contratiempo y tu reacción en calma.', 20);
+
+-- Poblar Usuarios (Integrantes del equipo)
+INSERT INTO usuarios (id_usuario, nombre_completo, email, password_hash, puntos_totales) VALUES
+(1, 'Jairo Alberto Gallego Betancur', 'jairo.gallego@correo.itm.edu.co', 'pass123', 100),
+(2, 'Juan Pablo Deossa Yepes', 'juan.deossa@correo.itm.edu.co', 'pass123', 150),
+(3, 'Sebastian Garcia', 'sebastian.garcia@correo.itm.edu.co', 'pass123', 50),
+(4, 'Nelson Anres Caldera Martinez', 'nelson.caldera@correo.itm.edu.co', 'pass123', 200);
+
+-- Registramos algunas lecciones completadas por los integrantes
+INSERT INTO progreso_lecciones (id_usuario, id_leccion, completada_en) VALUES
+(1, 1, '2026-04-10 10:00:00'), -- Jairo completó lección 1
+(1, 2, '2026-04-11 09:30:00'), -- Jairo completó lección 2
+(2, 1, '2026-04-09 15:20:00'), -- Juan Pablo completó lección 1
+(2, 3, '2026-04-11 11:00:00'), -- Juan Pablo completó lección 3
+(3, 1, '2026-04-11 14:00:00'), -- Sebastian completó lección 1
+(4, 1, '2026-04-08 08:00:00'), -- Nelson completó lección 1
+(4, 2, '2026-04-09 08:00:00'), -- Nelson completó lección 2
+(4, 3, '2026-04-10 08:00:00'); -- Nelson completó lección 3
+
+-- Registro de actividad en los retos diarios
+INSERT INTO registro_retos (id_usuario, id_reto, fecha_cumplimiento, estado) VALUES
+(1, 1, '2026-04-10', 'Completado'), -- Jairo cumplió reto de dicotomía
+(2, 1, '2026-04-10', 'Completado'), -- Juan Pablo cumplió reto de dicotomía
+(2, 2, '2026-04-11', 'Pendiente'),  -- Juan Pablo tiene pendiente el de fortaleza
+(3, 1, '2026-04-11', 'Fallido'),     -- Sebastian no logró el reto hoy
+(4, 1, '2026-04-09', 'Completado'), -- Nelson cumplió reto 1
+(4, 2, '2026-04-11', 'Completado'); -- Nelson cumplió reto 2
