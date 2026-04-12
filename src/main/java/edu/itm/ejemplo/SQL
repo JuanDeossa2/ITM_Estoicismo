@@ -79,3 +79,11 @@ SELECT
 FROM usuarios u
 LEFT JOIN progreso_lecciones pl ON u.id_usuario = pl.id_usuario
 GROUP BY u.id_usuario;
+
+    u.nombre_completo,
+    COUNT(pl.id_leccion) as lecciones_vistas,
+    u.puntos_totales
+FROM usuarios u
+LEFT JOIN progreso_lecciones pl ON u.id_usuario = pl.id_usuario
+GROUP BY u.id_usuario;suario
+GROUP BY u.id_usuario;
