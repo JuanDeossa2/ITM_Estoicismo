@@ -29,3 +29,6 @@ utilities
 Test (pruebas unitarias)
 - Services:
     LeccionServiceTest
+    ProgresoLeccionServiceTest
+    RutaServiceTest
+    UsuarioServiceTest
