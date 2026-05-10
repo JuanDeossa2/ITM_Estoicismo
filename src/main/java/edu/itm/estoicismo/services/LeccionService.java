@@ -3,7 +3,6 @@ package edu.itm.estoicismo.services;
 import edu.itm.estoicismo.entitiesSQL.Lecciones;
 import edu.itm.estoicismo.repositoriesSQL.LeccionRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
