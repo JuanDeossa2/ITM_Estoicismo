@@ -4,7 +4,6 @@ import edu.itm.estoicismo.entitiesSQL.Usuarios;
 import edu.itm.estoicismo.utilities.Conexion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

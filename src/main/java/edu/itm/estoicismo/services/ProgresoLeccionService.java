@@ -3,7 +3,6 @@ package edu.itm.estoicismo.services;
 import edu.itm.estoicismo.entitiesSQL.ProgresoLecciones;
 import edu.itm.estoicismo.repositoriesSQL.ProgresoLeccionRepository;
 import org.springframework.stereotype.Service;
-
 import java.sql.Timestamp;
 import java.util.List;
 
