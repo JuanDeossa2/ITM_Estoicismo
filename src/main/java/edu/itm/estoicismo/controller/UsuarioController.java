@@ -51,40 +51,38 @@ public class UsuarioController {
     @PostMapping("/nuevoUsuario")
     public ResponseEntity<Usuarios> insertarUsuario(@RequestBody Usuarios user){
 
-        if(ObjectUtils.isEmpty(user) || ObjectUtils.isEmpty(user.getNombreCompleto()) || ObjectUtils.isEmpty(user.getEmail())){
-            return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
+        if (user == null || ObjectUtils.isEmpty(user.getNombreCompleto()) || ObjectUtils.isEmpty(user.getEmail())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        user = service.crearUsuario(user);
+        Usuarios usuarioGuardado = service.crearUsuario(user);
 
-        if(ObjectUtils.isEmpty(user)){
-            return new ResponseEntity<>(user, HttpStatus.CONFLICT);
+        if (usuarioGuardado == null) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(usuarioGuardado, HttpStatus.CREATED);
     }
-
     @Operation(
             tags = {"Usuarios"},
             summary = "Permite actualizar un usuario",
             description = "Actualiza la información de un usuario existente"
     )
+
     @PutMapping("/actualizarUsuario")
     public ResponseEntity<Usuarios> actualizarUsuario(@RequestBody Usuarios user){
 
-        if(ObjectUtils.isEmpty(user) ||
-                ObjectUtils.isEmpty(user.getIdUsuario()) ||
-                user.getIdUsuario() == 0){
-            return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
+        if(user == null || user.getIdUsuario() == 0){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        user = service.actualizarUsuario(user);
+        Usuarios usuarioActualizado = service.actualizarUsuario(user);
 
-        if(ObjectUtils.isEmpty(user)){
-            return new ResponseEntity<>(user, HttpStatus.CONFLICT);
+        if(usuarioActualizado == null){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(usuarioActualizado, HttpStatus.OK);
     }
 
     @Operation(
@@ -106,6 +104,21 @@ public class UsuarioController {
         }
 
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+    @Operation(
+            tags = {"Usuarios"},
+            summary = "Permite obtener un usuario por email",
+            description = "Busca un usuario específico mediante su email"
+    )
+    @PostMapping("/login")
+    public ResponseEntity<Usuarios> login(@RequestParam("email") String email, @RequestParam("password") String password) {
+        Usuarios user = service.login(email, password);
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // Devuelve 401
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.OK); // Devuelve 200 con el usuario
     }
 
     @Operation(

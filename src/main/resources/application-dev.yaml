@@ -7,11 +7,11 @@ spring:
     url: jdbc:mysql://localhost:3307/itm_estoicismo_db
     username: root
     password: admin123
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver   # <-- 1. CORREGIDO AQUÍ
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
-    hibernate:
+    open-in-view: false                         # <-- 3. AGREGADO AQUÍ (Nota los espacios)
+    hibernate:                                  # <-- (La línea 13 vieja se borró)
       ddl-auto: update
       show-sql: true
       properties:

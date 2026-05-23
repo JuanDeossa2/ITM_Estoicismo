@@ -1,4 +1,5 @@
 Configuration
+- CorsConfiguration: Esta clase habilita el acceso a la APi y sus métodos
 - DocumentationConfig: Configurar datos de la API
 controller
 - LeccionController: CRUD del API de Leccion
