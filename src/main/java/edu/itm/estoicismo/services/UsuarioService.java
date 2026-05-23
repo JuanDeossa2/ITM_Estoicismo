@@ -13,6 +13,16 @@ public class UsuarioService {
 
     public List<Usuarios> buscarUsuarios() { return repository.buscarUsuarios(); }
 
+    public Usuarios login(String email, String password) {
+        Usuarios user = repository.buscarUsuarioPorEmail(email);
+
+        // Si el usuario existe y la contraseña coincide (aquí comparas plano o con BCrypt según uses)
+        if (user != null && user.getPasswordHash().equals(password)) {
+            return user; // Credenciales correctas
+        }
+        return null; // Credenciales incorrectas o usuario no encontrado
+    }
+
     public Usuarios crearUsuario(Usuarios user) {
         user.setIdUsuario(repository.generarNuevoIdUsuario());
         return repository.insertarUsuario(user);

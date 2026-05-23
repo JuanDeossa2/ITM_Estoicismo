@@ -10,8 +10,7 @@ public class UsuarioRepositoryHelper {
     public String buscarUsuario(){ return "SELECT id_usuario, nombre_completo, email, password_hash, puntos_totales, fecha_registro FROM usuarios WHERE id_usuario = ?";}
     // Crear Usuario
     public String obtenerUltimoIdUsuario() { return "SELECT MAX(id_usuario) FROM usuarios"; }
-    public String insertarUsuario() { return "INSERT INTO usuarios (id_usuario, nombre_completo, email, password_hash, puntos_totales, fecha_registro) VALUES (?, ?, ?, ?, ?, ?)";}    // Actualizar Usuario
-    // Actualizar Usuario
+    public String insertarUsuario() { return "INSERT INTO usuarios (nombre_completo, email, password_hash, puntos_totales, fecha_registro) VALUES (?, ?, ?, ?, ?)";}    // Actualizar Usuario
     public String actualizarUsuario() { return "UPDATE usuarios SET nombre_completo = ?, email = ?, password_hash = ?, puntos_totales = ?, fecha_registro = ? WHERE id_usuario = ?"; }
     // Eliminar Usuario
     public String eliminarUsuario() { return "DELETE FROM usuarios WHERE id_usuario = ?"; }
