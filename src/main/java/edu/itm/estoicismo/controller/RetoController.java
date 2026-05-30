@@ -5,6 +5,7 @@ import edu.itm.estoicismo.entitiesJPA.RegistroReto;
 import edu.itm.estoicismo.services.RetoServiceInterface;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
@@ -46,8 +47,12 @@ public class RetoController implements RetoAPI {
 
     // Registros
     @Override
-    public ResponseEntity<RegistroReto> postRegistro(RegistroReto registro) {
-        return new ResponseEntity<>(service.registrarCumplimiento(registro), HttpStatus.CREATED);
+    public ResponseEntity<RegistroReto> postRegistro(@RequestBody RegistroReto registro) {
+        registro.setIdRegistro(null);
+        return new ResponseEntity<>(
+                service.registrarCumplimiento(registro),
+                HttpStatus.CREATED
+        );
     }
 
     @Override
